@@ -27,8 +27,8 @@ function Register() {
       message.success("Registration successful! Please login.");
       navigate("/login");
     } catch (error) {
-      message.error("Registration failed. Please try again.");
-      console.error("Registration failed:", error);
+      console.log(error);
+      message.error(getErrorMessage(error));
     }
     finally {
       setLoading(false);

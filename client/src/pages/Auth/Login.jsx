@@ -4,6 +4,7 @@ import {Link, useNavigate } from "react-router-dom";
 import  styles from "./Login.module.css"
 import login from "../../assets/login.png";
 import {Button, Input, message} from "antd";
+import { getErrorMessage } from "../../utils/GetError.js";
 
 function Login() {
     const [username, setUsername] = React.useState("");
@@ -23,7 +24,8 @@ function Login() {
             localStorage.setItem("token", response.data.token);
             navigate("/to-do-list");
         }catch (error) {
-            console.error("Login failed:", error);
+            console.log(error);
+            message.error(getErrorMessage(error));
         }finally {
             setLoading(false);
         }

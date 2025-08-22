@@ -1,15 +1,15 @@
 const ToDo = require('../models/ToDoList');
 
 exports.createToDo = async (req, res) => {
-    try {
-        const { title, description, isCompleted } = req.body;
-        const newToDo = new ToDo({ title, description, isCompleted });
-        const result = await newToDo.save();
+    try{
+        const data = req.body;
+        const todo = new ToDo(data);
+        const result = await todo.save();
         console.log(result);
-        res.status(201).send({message:"Created New Task!!!"});
-    } catch (error) {
-        console.log(error);
-        res.status(500).send({message:"Error creating Task!!!"});
+        res.status(201).send({message:"Created New Task !"});
+    }catch(err){
+        console.log(err);
+        res.status(err);
     }
 };
 

@@ -22,7 +22,12 @@
 .input__wrapper,.input__inline__wrapper{
     margin-bottom: 1%;
     width: 80%;
-  
+}
+
+.input__inline__wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.4rem;
 }
 
 .input__inline__wrapper{

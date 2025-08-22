@@ -4,6 +4,7 @@ import login from '../../assets/login.png';
 import { Button, Input, message } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthServices from '../../services/authServices.js';
+import { getErrorMessage } from '../../utils/GetError.js';
 
 function Register() {
   const [username, setUsername] = React.useState("");

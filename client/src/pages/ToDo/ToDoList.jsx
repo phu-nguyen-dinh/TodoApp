@@ -1,15 +1,10 @@
 import React from "react";
-
+import Navbar from "../../components/Navbar";
 function ToDoList() {
   return (
-    <div>
-      <h1>Your To-Do List</h1>
-      <ul>
-        <li>Task 1</li>
-        <li>Task 2</li>
-        <li>Task 3</li>
-      </ul>
-    </div>
+    <>
+    <Navbar active={"myTask"} />
+    </>
   );
 }
 

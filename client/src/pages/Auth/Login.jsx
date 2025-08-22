@@ -21,7 +21,7 @@ function Login() {
             }
             const response = await AuthServices.loginUser(data);
             console.log(response.data);
-            localStorage.setItem("token", response.data.token);
+            localStorage.setItem("toDoAppUser", JSON.stringify(response.data));
             navigate("/to-do-list");
         }catch (error) {
             console.log(error);

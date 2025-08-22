@@ -1,6 +1,33 @@
-import React from "react";
 import logo from "../assets/logo.png";
+import { useEffect, useState } from "react";
+import {getUserDetails} from "../utils/GetUser.js";
+import { Dropdown } from "antd";
+import avatar from "../assets/login.png";
+import {Link, useNavigate } from "react-router-dom";
+
 function Navbar({ active }) {
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const userDetails = getUserDetails();
+    setUser(userDetails);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("toDoAppUser");
+    navigate("/login");
+  };
+
+  const items = [
+    {
+      key: '1',
+      label: (
+        <span onClick={handleLogout}> Logout</span>
+      ),
+    },
+  ];
+
   return (
     <header>
       <nav>
@@ -9,20 +36,28 @@ function Navbar({ active }) {
             <h4>DoDo</h4>
         </div>
         <ul className="navigation-menu">
-          <li>
-            <a href="/" className={active === 'home' ? 'activeNav' : ''}>Home</a>
-          </li>
-          <li>
-            <a href="/login" className={active === 'login' ? 'activeNav' : ''}>Login</a>
-          </li>
-          <li>
-            <a href="/register" className={active === 'register' ? 'activeNav' : ''}>Register</a>
-          </li>
-          <li>
-            <a href="/to-do-list" className={active === 'to-do-list' ? 'activeNav' : ''}>To-Do List</a>
-          </li>
+          <li><Link to="/" className={active==='home' && 'activeNav'}>Home</Link></li>
+          {user && <li><Link to="/to-do-list" className={active==='myTask' && 'activeNav'}>My Task</Link></li>}
+
+          {user ?
+            <Dropdown
+                menu={{
+                  items,
+                }}
+                placement="bottom"
+                arrow
+            >
+              <div className='userInfoNav'>
+                <img  src={avatar} alt="." />
+                <span>{user?.firstName ? `Hello, ${user?.firstName} ${user?.lastName}` : user?.username}</span>
+              </div>
+            </Dropdown>
+            : <>
+            <li><Link to="/login">Login</Link></li>
+            <li><Link to="/register">Register</Link></li>
+            </>}
         </ul>
-    </nav>
+      </nav>
     </header>
   );
 }
